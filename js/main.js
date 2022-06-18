@@ -1,14 +1,14 @@
 //Функция, возвращающая случайное целое число из переданного диапазона включительно
 const returnRandomInteger = function (min, max) {
-  min=Math.ceil(min);
-  max=Math.floor(max);
-  const rez = Math.floor(Math.random() * (max - min + 1)) + min;
-  return(min>0) ? `${ rez } целое число из диапазона от ${ min } до ${ max }`:'Упс, число не может быть меньше или равно 0';
+  if(min>=0 & max>=0 & min<max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  return 'error';
 };
 returnRandomInteger(1,78);
 
 //Функция для проверки максимальной длины строки
 const checkingMaxStrLength = function (str, max) {
-  return(str.length<=max) ? 'true':'false';
+  return str.length<=max;
 };
 checkingMaxStrLength('Василий',456);
