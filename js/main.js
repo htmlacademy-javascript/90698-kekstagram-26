@@ -35,14 +35,14 @@ const createObject = (id) => {
       const r = returnRandomInteger(1,100);
       comments.push(createComment(r));
       ids.push(r);
-    }
-    else {
+    }    else {
       let r;
-      while(true) {
+      let isSame = true;
+      while(isSame) {
         r = returnRandomInteger(1,100);
-        if(!ids.some(el=>el===r)){
+        if(!ids.some((el)=>el===r)){
           ids.push(r);
-          break;
+          isSame = false;
         }
       }
       comments.push(createComment(r));
@@ -62,5 +62,3 @@ const generateObjects=[];
 for (let i = 1; i <= RAZ; i++){
   generateObjects.push(createObject(i));
 }
-
-
