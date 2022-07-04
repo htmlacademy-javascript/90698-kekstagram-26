@@ -48,3 +48,4 @@ const generateObjects=[];
 for (let i = 1; i <= RAZ; i++){
   generateObjects.push(createObject(i));
 }
+export{generateObjects};
