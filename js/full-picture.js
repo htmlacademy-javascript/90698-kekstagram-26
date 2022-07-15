@@ -5,13 +5,32 @@ const loadNewCommentsElement=document.querySelector('.comments-loader');
 const bodyElement=document.querySelector('body');
 const closeBigPictureElement=document.querySelector('.big-picture__cancel');
 const fullPictureImageElement=document.querySelector('.big-picture__img img');
+const listСommentsElement = document.querySelector('.social__comments');
+
+const createComentTempate = (comment) => (
+  `<li class="social__comment">
+    <img class="social__picture"
+      src="${comment.avatar}"
+      alt="${comment.name}"
+      width="35" height="35">
+    <p class="social__text">${comment.message}</p>
+</li>`
+);
+
+const renderComents = (comments) => {
+  listСommentsElement.innerHTML = '';
+
+  comments.forEach((comment) => {
+    listСommentsElement.insertAdjacentHTML('beforeend', createComentTempate(comment));
+  });
+};
 
 const renderFullPicture = (({url, likes, comments, description}) => {
   fullPictureImageElement.src = url;
   openFullElement.querySelector('.likes-count').textContent = likes;
-  openFullElement.querySelector('.comments-count').textContent = comments;
   openFullElement.querySelector('.comments-count').textContent = comments.length;
   openFullElement.querySelector('.social__caption').textContent = description;
+  renderComents(comments);
   openFullPicture();
 });
 
