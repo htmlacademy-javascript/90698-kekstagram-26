@@ -13,3 +13,9 @@ const checkingMaxStrLength = function (str, max) {
 };
 checkingMaxStrLength('Василий',456);
 export{returnRandomInteger};
+
+//Функция проверки нажатия клавиши Escape
+const isEscapeKey = function(evt) {
+  return evt.key === 'Escape';
+};
+export{isEscapeKey};
