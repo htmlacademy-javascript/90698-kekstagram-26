@@ -13,7 +13,7 @@ const createComment = (id) => ({
 
 const createObject = (id) => {
   const comments = [];
-  const commentsCount = returnRandomInteger(1,5);
+  const commentsCount = returnRandomInteger(1,6);
   const ids = [];
 
   for (let i = 1; i <= commentsCount; i++) {
