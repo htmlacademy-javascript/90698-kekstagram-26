@@ -132,7 +132,7 @@ function initEffects () {
   });
 }
 
-function onFilterButtonChange (evt) {
+function changeEffect (evt) {
   const evtHandler = evt.target.value;
   if (evtHandler === 'none') {
     effectLevelElement.classList.add('hidden');
@@ -148,4 +148,4 @@ function onFilterButtonChange (evt) {
     });
   }
 }
-export{scaleControlValue, closeScaleControlValue, onFilterButtonChange, initEffects, effectList, pictureUploadPreviewElement};
+export{scaleControlValue, closeScaleControlValue, changeEffect, initEffects, effectList, pictureUploadPreviewElement};

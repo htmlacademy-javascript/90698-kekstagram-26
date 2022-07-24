@@ -1,5 +1,5 @@
 import { isEscapeKey, checkingMaxStrLength } from './util.js';
-import { scaleControlValue, closeScaleControlValue, onFilterButtonChange, initEffects, effectList, pictureUploadPreviewElement } from './slider.js';
+import { scaleControlValue, closeScaleControlValue, changeEffect, initEffects, effectList, pictureUploadPreviewElement } from './slider.js';
 const uploadFile=document.querySelector('#upload-file');
 const imgUploadOverlay=document.querySelector('.img-upload__overlay');
 const bodyElement=document.querySelector('body');
@@ -30,7 +30,7 @@ function closeFormEditImg () {
   document.removeEventListener('keydown', onPopupEscKeydown);
   closeScaleControlValue();
 
-  effectList.removeEventListener('change', onFilterButtonChange);
+  effectList.removeEventListener('change', changeEffect);
   pictureUploadPreviewElement.removeAttribute('class');
   pictureUploadPreviewElement.removeAttribute('style');
 }
@@ -46,7 +46,7 @@ uploadFile.addEventListener('change', ()=>{
   bodyElement.classList.add('modal-open');
   initEffects();
   scaleControlValue();
-  effectList.addEventListener('change', onFilterButtonChange);
+  effectList.addEventListener('change', changeEffect);
   sliderWrapper.classList.add('hidden');
 });
 
