@@ -20,9 +20,8 @@ checkingMaxStrLength('Василий',456);
 const isEscapeKey = function(evt) {
   return evt.key === 'Escape';
 };
-export{isEscapeKey,returnRandomInteger,checkingMaxStrLength};
 
-//ошибка вывода изображения с сервера
+//ошибка загрузки данных с сервера
 const showAlert=(message)=>{
   const alert=document.createElement('div');
   alert.style.position='absolute';
@@ -41,8 +40,7 @@ const showAlert=(message)=>{
   }, ALERT_SHOW_TIME);
 };
 
-export{showAlert};
-
+export{isEscapeKey,returnRandomInteger,checkingMaxStrLength,showAlert};
 /*const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
   return (...rest) => {

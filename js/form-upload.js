@@ -10,9 +10,10 @@ const uploadCancel=document.querySelector('#upload-cancel');
 const imgUploadForm=document.querySelector('.img-upload__form');
 const hashTagsElement=document.querySelector('.text__hashtags');
 const descriptionElement=document.querySelector('.text__description');
+const submitButton = document.querySelector('.img-upload__submit');
 const MAX_HASHTAGS=5;
 const MAX_SYMBOLS=140;
-const submitButton = document.querySelector('.img-upload__submit');
+
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
@@ -38,7 +39,7 @@ function openUploadImg () {
 function closeFormEditImg () {
   imgUploadOverlay.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
-  document.imgUploadForm.reset();
+  imgUploadForm.reset();
   document.removeEventListener('keydown', onPopupEscKeydown);
   closeScaleControlValue();
 
@@ -81,6 +82,7 @@ const pristine = new Pristine(imgUploadForm,{
 });
 
 const hashtags = function(value) {value.toLowerCase().split(' ');
+  return value;
 };
 
 pristine.addValidator(hashTagsElement,(value)=>hashtags(value).length <= MAX_HASHTAGS,
