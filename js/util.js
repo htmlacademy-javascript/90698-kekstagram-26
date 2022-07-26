@@ -41,11 +41,11 @@ const showAlert=(message)=>{
 };
 
 export{isEscapeKey,returnRandomInteger,checkingMaxStrLength,showAlert};
-/*const debounce = (callback, timeoutDelay = 500) => {
+const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 };
-export{debounce};*/
+export{debounce};
