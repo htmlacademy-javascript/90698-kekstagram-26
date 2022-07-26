@@ -6,9 +6,10 @@ const bodyElement=document.querySelector('body');
 const closeBigPictureElement=document.querySelector('.big-picture__cancel');
 const fullPictureImageElement=document.querySelector('.big-picture__img img');
 const listСommentsElement = document.querySelector('.social__comments');
+const ofElement=countCommentsElement.querySelector('.of');
 const MAX_STEP_COMMENTS=5;
 let commentsHandler = 0;
-const ofElement=countCommentsElement.querySelector('.of');
+
 
 const createComentTempate = (comment) => (
   `<li class="social__comment">
