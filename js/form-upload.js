@@ -1,5 +1,8 @@
 import { isEscapeKey, checkingMaxStrLength } from './util.js';
 import { scaleControlValue, closeScaleControlValue, changeEffect, initEffects, effectList, pictureUploadPreviewElement } from './slider.js';
+import { sendData } from './api.js';
+import { showAlert } from './util.js';
+import{showMessageSuccess,showMessageError} from './messages.js';
 const uploadFile=document.querySelector('#upload-file');
 const imgUploadOverlay=document.querySelector('.img-upload__overlay');
 const bodyElement=document.querySelector('body');
@@ -9,7 +12,16 @@ const hashTagsElement=document.querySelector('.text__hashtags');
 const descriptionElement=document.querySelector('.text__description');
 const MAX_HASHTAGS=5;
 const MAX_SYMBOLS=140;
+const submitButton = document.querySelector('.img-upload__submit');
 
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикую...';
+};
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
 
 const onPopupEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -93,9 +105,36 @@ pristine.addValidator(descriptionElement,
   'длина комментария не больше 140 символов'
 );
 
-imgUploadForm.addEventListener('submit', (evt) => {
-  const isValid = pristine.validate();
-  if (isValid) {
+const onSuccess = () => {
+  closeFormEditImg();
+  unblockSubmitButton();
+  showMessageSuccess();
+};
+const onError = () => {
+  showAlert('Не удалось отправить форму. Попробуйте ещё раз');
+  unblockSubmitButton();
+  showMessageError();
+};
+
+const setFileFormSubmit = () => {
+  imgUploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-  } });
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(
+        () => {
+          onSuccess();
+        },
+        () => {
+          onError();
+        },
+        new FormData(evt.target),
+      );
+    }
+  });
+};
+
+export {setFileFormSubmit, closeFormEditImg};
 
