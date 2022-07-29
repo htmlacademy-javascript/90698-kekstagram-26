@@ -1,11 +1,12 @@
-const scaleSmallerElement = document.querySelector('.scale__control--smaller');
-const scaleBiggerElement = document.querySelector('.scale__control--bigger');
-const scaleControlValueElement = document.querySelector('.scale__control--value');
-const pictureUploadPreviewElement = document.querySelector('.img-upload__preview img');
 const STEP_VALUE_SCALE = 25;
 const MIN_VALUE_SCALE = 25;
 const MAX_VALUE_SCALE = 100;
 const DIVISOR=100;
+
+const scaleSmallerElement = document.querySelector('.scale__control--smaller');
+const scaleBiggerElement = document.querySelector('.scale__control--bigger');
+const scaleControlValueElement = document.querySelector('.scale__control--value');
+const pictureUploadPreviewElement = document.querySelector('.img-upload__preview img');
 let currentValue;
 
 const effectLevelElement = document.querySelector('.effect-level');
@@ -111,7 +112,7 @@ const EFFECTS = {
 };
 
 
-function initEffects () {
+const initEffects = ()=> {
   noUiSlider.create(sliderElement, {
     range: {
       min: 0,
@@ -130,13 +131,14 @@ function initEffects () {
       from: (value) => parseFloat(value),
     },
   });
-}
+};
 
 function changeEffect (evt) {
   const evtHandler = evt.target.value;
-  if (evtHandler === 'none') {
+  if (evtHandler === ' ') {
     effectLevelElement.classList.add('hidden');
-    pictureUploadPreviewElement.style.filter = 'none';
+    pictureUploadPreviewElement.style.filter = ' ';
+    effectLevelElement.noUiSlider.off();
   }  else {
     effectLevelElement.classList.remove('hidden');
     pictureUploadPreviewElement.removeAttribute('class');

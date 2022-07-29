@@ -1,18 +1,18 @@
 import { isEscapeKey } from './util.js';
 
 const showMessageSuccess = ()=>{
-  const messegeTemplate = document.querySelector('#success')
+  const messageTemplate = document.querySelector('#success')
     .content
     .querySelector('.success');
   const body = document.querySelector('body');
 
-  const messegeElement = messegeTemplate.cloneNode(true);
-  body.appendChild(messegeElement);
+  const messageElement = messageTemplate.cloneNode(true);
+  body.appendChild(messageElement);
 
-  const successButton = messegeElement.querySelector('.success__button');
-  const successInner = messegeElement.querySelector('.success__inner');
+  const successButton = messageElement.querySelector('.success__button');
+  const successInner = messageElement.querySelector('.success__inner');
 
-  const onMessegeEscDown = () => {
+  const onMessageEscDown = () => {
     if(isEscapeKey){
       closeMessage();
     }
@@ -25,32 +25,32 @@ const showMessageSuccess = ()=>{
   };
 
   function closeMessage () {
-    messegeElement.classList.add('hidden');
+    messageElement.classList.add('hidden');
     successButton.removeEventListener('click', closeMessage);
-    document.removeEventListener('keydown', onMessegeEscDown);
+    document.removeEventListener('keydown', onMessageEscDown);
     document.removeEventListener('click', onDocumentClickCansel);
   }
 
   successButton.addEventListener('click', closeMessage);
-  document.addEventListener('keydown', onMessegeEscDown);
+  document.addEventListener('keydown', onMessageEscDown);
   document.addEventListener('click', onDocumentClickCansel);
 };
 
 const showMessageError = ()=>{
   const imgUpload = document.querySelector('.img-upload__overlay');
-  const messegeTemplate = document.querySelector('#error')
+  const messageTemplate = document.querySelector('#error')
     .content
     .querySelector('.error');
   const body = document.querySelector('body');
 
-  const messegeElement = messegeTemplate.cloneNode(true);
-  body.appendChild(messegeElement);
+  const messageElement = messageTemplate.cloneNode(true);
+  body.appendChild(messageElement);
   imgUpload.classList.add('hidden');
 
-  const errorButton = messegeElement.querySelector('.error__button');
-  const errorInner = messegeElement.querySelector('.error__inner');
+  const errorButton = messageElement.querySelector('.error__button');
+  const errorInner = messageElement.querySelector('.error__inner');
 
-  const onMessegeEscDown = () => {
+  const onMessageEscDown = () => {
     if(isEscapeKey){
       closeMessage();
     }
@@ -63,15 +63,15 @@ const showMessageError = ()=>{
   };
 
   function closeMessage () {
-    messegeElement.classList.add('hidden');
+    messageElement.classList.add('hidden');
     imgUpload.classList.remove('hidden');
     errorButton.removeEventListener('click', closeMessage);
-    document.removeEventListener('keydown', onMessegeEscDown);
+    document.removeEventListener('keydown', onMessageEscDown);
     document.removeEventListener('click', onDocumentClickCansel);
   }
 
   errorButton.addEventListener('click', closeMessage);
-  document.addEventListener('keydown', onMessegeEscDown);
+  document.addEventListener('keydown', onMessageEscDown);
   document.addEventListener('click', onDocumentClickCansel);
 
 };
