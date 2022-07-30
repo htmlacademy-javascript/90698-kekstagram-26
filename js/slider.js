@@ -1,17 +1,19 @@
-const scaleSmallerElement = document.querySelector('.scale__control--smaller');
-const scaleBiggerElement = document.querySelector('.scale__control--bigger');
-const scaleControlValueElement = document.querySelector('.scale__control--value');
-const pictureUploadPreviewElement = document.querySelector('.img-upload__preview img');
 const STEP_VALUE_SCALE = 25;
 const MIN_VALUE_SCALE = 25;
 const MAX_VALUE_SCALE = 100;
 const DIVISOR=100;
+
+const imgUploadOverlay=document.querySelector('.img-upload__overlay');
+const scaleSmallerElement = imgUploadOverlay.querySelector('.scale__control--smaller');
+const scaleBiggerElement = imgUploadOverlay.querySelector('.scale__control--bigger');
+const scaleControlValueElement = imgUploadOverlay.querySelector('.scale__control--value');
+const pictureUploadPreviewElement = imgUploadOverlay.querySelector('.img-upload__preview img');
 let currentValue;
 
-const effectLevelElement = document.querySelector('.effect-level');
-const sliderElement = document.querySelector('.effect-level__slider');
-const effectValueInputElement = document.querySelector('.effect-level__value');
-const effectList = document.querySelector('.effects__list');
+const effectLevelElement = imgUploadOverlay.querySelector('.effect-level');
+const sliderElement = imgUploadOverlay.querySelector('.effect-level__slider');
+const effectValueInputElement = imgUploadOverlay.querySelector('.effect-level__value');
+const effectList = imgUploadOverlay.querySelector('.effects__list');
 
 //Изменение размера картинки
 function scalePicture () {
@@ -111,7 +113,7 @@ const EFFECTS = {
 };
 
 
-function initEffects () {
+const initEffects = ()=> {
   noUiSlider.create(sliderElement, {
     range: {
       min: 0,
@@ -130,13 +132,14 @@ function initEffects () {
       from: (value) => parseFloat(value),
     },
   });
-}
+};
 
 function changeEffect (evt) {
   const evtHandler = evt.target.value;
-  if (evtHandler === 'none') {
+  if (evtHandler === ' ') {
     effectLevelElement.classList.add('hidden');
-    pictureUploadPreviewElement.style.filter = 'none';
+    pictureUploadPreviewElement.style.filter = ' ';
+    effectLevelElement.noUiSlider.off();
   }  else {
     effectLevelElement.classList.remove('hidden');
     pictureUploadPreviewElement.removeAttribute('class');

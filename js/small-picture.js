@@ -1,4 +1,5 @@
 import { renderFullPicture} from './full-picture.js';
+
 const pictureList=document.querySelector('.pictures');
 const pictureTemplate=document.querySelector('#picture').content.querySelector('.picture');
 const renderPictureList = (offers) => {

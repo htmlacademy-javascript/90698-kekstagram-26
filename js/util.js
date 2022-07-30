@@ -7,13 +7,11 @@ const returnRandomInteger = function (min, max) {
   }
   return -1;
 };
-returnRandomInteger(1,78);
 
 //Функция для проверки максимальной длины строки
 const checkingMaxStrLength = function (str, max) {
   return str.length<=max;
 };
-checkingMaxStrLength('Василий',456);
 
 
 //Функция проверки нажатия клавиши Escape

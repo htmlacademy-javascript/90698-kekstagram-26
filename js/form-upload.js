@@ -3,16 +3,18 @@ import { scaleControlValue, closeScaleControlValue, changeEffect, initEffects, e
 import { sendData } from './api.js';
 import { showAlert } from './util.js';
 import{showMessageSuccess,showMessageError} from './messages.js';
-const uploadFile=document.querySelector('#upload-file');
-const imgUploadOverlay=document.querySelector('.img-upload__overlay');
-const bodyElement=document.querySelector('body');
-const uploadCancel=document.querySelector('#upload-cancel');
-const imgUploadForm=document.querySelector('.img-upload__form');
-const hashTagsElement=document.querySelector('.text__hashtags');
-const descriptionElement=document.querySelector('.text__description');
-const submitButton = document.querySelector('.img-upload__submit');
+
 const MAX_HASHTAGS=5;
 const MAX_SYMBOLS=140;
+
+const imgUploadForm=document.querySelector('.img-upload__form');
+const uploadFile=imgUploadForm.querySelector('#upload-file');
+const imgUploadOverlay=imgUploadForm.querySelector('.img-upload__overlay');
+const bodyElement=document.querySelector('body');
+const uploadCancel=imgUploadForm.querySelector('#upload-cancel');
+const hashTagsElement=imgUploadForm.querySelector('.text__hashtags');
+const descriptionElement=imgUploadForm.querySelector('.text__description');
+const submitButton = imgUploadForm.querySelector('.img-upload__submit');
 
 
 const blockSubmitButton = () => {
@@ -39,13 +41,13 @@ function openUploadImg () {
 function closeFormEditImg () {
   imgUploadOverlay.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
-  imgUploadForm.reset();
-  document.removeEventListener('keydown', onPopupEscKeydown);
-  closeScaleControlValue();
 
   effectList.removeEventListener('change', changeEffect);
   pictureUploadPreviewElement.removeAttribute('class');
   pictureUploadPreviewElement.removeAttribute('style');
+  closeScaleControlValue();
+  imgUploadForm.reset();
+  document.removeEventListener('keydown', onPopupEscKeydown);
 }
 
 uploadCancel.addEventListener('click',()=>{
@@ -57,7 +59,6 @@ uploadFile.addEventListener('change', ()=>{
   const sliderWrapper = document.querySelector('.effect-level');
   imgUploadOverlay.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
-  initEffects();
   scaleControlValue();
   effectList.addEventListener('change', changeEffect);
   sliderWrapper.classList.add('hidden');
@@ -75,18 +76,28 @@ descriptionElement.addEventListener('keydown', (evt) =>  {
   }
 });
 
+initEffects();
+
 // Валидация хэштегов и комментариев
 const pristine = new Pristine(imgUploadForm,{
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper'
 });
 
-const hashtags = function(value) {value.toLowerCase().split(' ');
-  return value;
-};
+const isMaxHashtags = (value)=>value.split(' ').length<= MAX_HASHTAGS;
 
-pristine.addValidator(hashTagsElement,(value)=>hashtags(value).length <= MAX_HASHTAGS,
+pristine.addValidator(hashTagsElement,isMaxHashtags,
   'нельзя указать больше пяти хэш-тегов');
+
+const isTheOnlyOne = (value) => {
+  const newHashtags = value.toLowerCase().split(' ');
+  return newHashtags.every((newHashtag) => newHashtags.filter((tag) => tag === newHashtag).length === 1);
+};
+pristine.addValidator(
+  hashTagsElement,
+  isTheOnlyOne,
+  'Два одинаковых хэш-тега!',
+);
 
 function isHashtagValid (value) {
   const RegExp = /^#[A-Za-z0-9А-Яа-яЁё]{1,19}$/;
@@ -98,8 +109,8 @@ function isHashtagValid (value) {
   } return true;
 }
 pristine.addValidator(hashTagsElement,
-  (value) => isHashtagValid(value),
-  'хэш-тег начинается с символа # состоит из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т. п.)'
+  isHashtagValid,
+  'хэш-тег начинается с символа # состоит из букв и чисел'
 );
 
 pristine.addValidator(descriptionElement,
@@ -111,6 +122,7 @@ const onSuccess = () => {
   closeFormEditImg();
   unblockSubmitButton();
   showMessageSuccess();
+
 };
 const onError = () => {
   showAlert('Не удалось отправить форму. Попробуйте ещё раз');
