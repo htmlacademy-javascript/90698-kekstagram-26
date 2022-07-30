@@ -3,14 +3,13 @@ import { returnRandomInteger } from './util.js';
 import { debounce } from './util.js';
 
 const RANDOM_PHOTOS_COUNT = 10;
+const MIN=-25;
+const MAX=25;
 
 const imgFiltersElement = document.querySelector('.img-filters');
 const buttonDefaultElement = document.querySelector('#filter-default');
 const buttonRandomElement = document.querySelector('#filter-random');
 const buttonDiscussedElement = document.querySelector('#filter-discussed');
-
-const MIN=-25;
-const MAX=25;
 
 const removeAllPhotos = () => {
   const listPictureElements = document.querySelectorAll('.picture');
