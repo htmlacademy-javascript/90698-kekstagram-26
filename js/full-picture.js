@@ -12,7 +12,7 @@ const buttonLoadElement = openFullElement.querySelector('.comments-loader');
 let commentsModule;
 let count;
 
-const createCommentTempate = (comment) => (
+const createCommentTemplate = (comment) => (
   `<li class="social__comment">
     <img class="social__picture"
       src="${comment.avatar}"
@@ -26,7 +26,7 @@ const renderComments = () => {
   listCommentsElement.innerHTML = '';
   const commentsRender = commentsModule.slice(0, count);
   commentsRender.forEach((comment) => {
-    listCommentsElement.insertAdjacentHTML('beforeend', createCommentTempate(comment));
+    listCommentsElement.insertAdjacentHTML('beforeend', createCommentTemplate(comment));
   });
 
   const isHideButton = commentsRender.length >= commentsModule.length;
