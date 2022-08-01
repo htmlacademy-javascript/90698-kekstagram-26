@@ -99,19 +99,25 @@ pristine.addValidator(
   'Два одинаковых хэш-тега!',
 );
 
-function isHashtagValid (value) {
-  const RegExp = /^#[A-Za-z0-9А-Яа-яЁё]{1,19}$/;
-  const array = value.split(' ');
-  for (const arrayElement of array) {
-    if (!RegExp.test(arrayElement) && arrayElement !== '') {
-      return false;
-    }
-  } return true;
-}
+const validateHashLength = function (value) {
+  if (value === '') {
+    return true;
+  }
+  return value.split(' ').every((element) => element.length <= 20 && element.length >= 2);
+};
 pristine.addValidator(hashTagsElement,
-  isHashtagValid,
-  'хэш-тег начинается с символа # состоит из букв и чисел'
-);
+  validateHashLength,
+  'Длина хэш-тега должна быть от 2 до 20 символов');
+
+const validateHashRegular=function(value){
+  if (value === '') {
+    return true;
+  }
+  return value.split(' ').every((element) => /^#[A-Za-zА-Яа-яЁё0-9]{0,}$/.test(element));
+};
+
+pristine.addValidator(hashTagsElement,validateHashRegular,
+  'Хештег начинается с # состоит из букв и чисел');
 
 pristine.addValidator(descriptionElement,
   (value) => checkingMaxStrLength(value, MAX_SYMBOLS),
